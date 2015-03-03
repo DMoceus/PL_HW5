@@ -1,8 +1,8 @@
 /*******************************************************************
         CS471 - Programming Languages
-        Assignment #<number> due: <DATE>
-        Author: <LastName>, <FirstName> (<EMail>)
-        Date: <DATE>
+        Assignment #5 due: 3/3/2015
+        Author: Morris, David (dmorris4@binghamton.edu)
+        Date: 3/3/2015
 *********************************************************************/
 /*** Printing out the whole list:
       http://www.swi-prolog.org/FAQ/AllOutput.html
@@ -40,6 +40,10 @@
 
    Below are trees you can use for testing.
 */
+
+eval(expTree(lit,Value),Value).
+eval(expTree(Op,T),Value) :- eval(T,X), Term =.. [Op,X], Value is Term.
+eval(expTree(Op,Lt,Rt),Value) :- eval(Lt,X), eval(Rt,Y), Term =.. [Op,X,Y], Value is Term.
 
 eTree1(expTree('+',
 	      expTree(lit, 5),
