@@ -151,6 +151,9 @@ eTree4(expTree(float,
 
  */
 
+%Doesn't Work
+evaluate(Result,Value,A:B) :- A = B, Value = Result.
+
 d(x,x,1).
 d(C,x,0):-number(C).
 d(C*x,x,C):-number(C).
@@ -177,7 +180,9 @@ d(U ^ N, x, N*U ^ N1*DU) :- integer(N), N1 is N-1, d(U, x, DU).
    of clauses matter.
 */
 
-
+concatALL([],[]).
+concatALL(A,C) :- not(is_list(A)), C = [A].
+concatALL([H|T],C) :- concatALL(H,X), concatALL(T,Y), append(X,Y,C).
 
 /* 4: Below is a database of US coins. */
 
@@ -223,6 +228,10 @@ coin(penny,1).
          3) What happens if the order of the "coin" facts change?
 
   */
+
+%Doesn't Work
+change(0,[]).
+change(S,[(Name,Amount)|T]) :- coin(Name,X), change(Y,T), Z is Amount*X, S is Z+Y.
 
 /*** 5: Do exercise 11.14 page 585.  You may define two predicates,
         one for the outer loop(2 clauses) -- insertionSort/3
